@@ -13,4 +13,4 @@ jobs:
       - name: Setup libiconv
         uses: ./
         with:
-          libharu-version: 1.17
+          libiconv-version: 1.17
