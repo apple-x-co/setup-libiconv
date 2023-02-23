@@ -1,0 +1,16 @@
+name: CI
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup libiconv
+        uses: ./
+        with:
+          libharu-version: 1.17

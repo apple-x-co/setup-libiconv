@@ -1,0 +1,32 @@
+name: Setup libiconv
+description: Install iconv library
+branding:
+  icon: anchor
+  color: gray-dark
+inputs:
+  libiconv-version:
+    required: true
+    description: version of libiconv
+runs:
+  using: "composite"
+  steps:
+    - name: Make temporary directory
+      shell: bash
+      run: |
+        mkdir -p /tmp/libiconv/build
+
+    - name: Download libiconv v${{ inputs.libiconv-version }}
+      shell: bash
+      run: |
+        cd /tmp/libiconv
+        wget http://ftp.gnu.org/pub/gnu/libiconv/libiconv-${{ inputs.libiconv-version }}.tar.gz
+        tar -xvzf libiconv-${{ inputs.libiconv-version }}.tar.gz
+
+    - name: Build & Install libiconv v${{ inputs.libiconv-version }}
+      shell: bash
+      run: |
+        cd /tmp/libiconv/libiconv-${{ inputs.libiconv-version }}
+        sudo ./configure --prefix=/usr/local/libiconv
+        sudo make clean
+        sudo make
+        sudo make install
